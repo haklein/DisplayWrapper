@@ -1,0 +1,24 @@
+{
+  "name": "DisplayWrapper",
+  "version": "1.0.0",
+  "description": "Maps ThingPulse OLED library calls to LovyanGFX",
+  "keywords": "Display",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/haklein/DisplayWrapper.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Harald Klein",
+      "email": "hari@vt100.at",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/haklein/DisplayWrapper",
+  "frameworks": "*",
+  "platforms": "*"
+}
+
