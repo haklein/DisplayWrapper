@@ -9,6 +9,13 @@
 #include "DialogInput_plain_30.h"
 #include "DialogInput_bold_30.h"
 static LGFX lcd;
+#elif ILI9341_DRIVER
+#include "ILI9341.h"
+#include "DialogInput_plain_24.h"
+#include "DialogInput_bold_24.h"
+#include "DialogInput_plain_30.h"
+#include "DialogInput_bold_30.h"
+static LGFX lcd;
 #else
 #include "SSD1306.h"
 #define SSD1306_DRIVER
