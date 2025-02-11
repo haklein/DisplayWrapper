@@ -1,6 +1,6 @@
 # DisplayWrapper
 
-This is a small wrapper to map ThingPulse OLED library calls to LovyanGFX. It contains LovyanGFX configurations for SSD1306 and ST7789 based displays. This just maps the Thingpulse library calls used by the Morserino32 project so that larger ST7789 displays can be used. Hence it's probably not fit for any other purpose.
+This is a small wrapper to map ThingPulse OLED library calls to LovyanGFX. It contains LovyanGFX configurations for SSD1306, ST7789 and ILI9341 based displays. This just maps the Thingpulse library calls used by the Morserino32 project so that larger ST7789 & ILI9341 displays can be used. Hence it's probably not fit for any other purpose.
 
 # Fonts
 The font support is very limited and only supports mapping of the fonts used by the Morserino32 project (DialogInput bold & plain in 12 and 15) to AdafruitGFX fonts as those are supported by LovyanGFX. A more sophisticated font mapping might be very usable, but due to the limited amount of fonts being used in M32 this does the trick so far. Original thingpulse and GFX fonts were generated via http://oleddisplay.squix.ch/ .
@@ -24,7 +24,7 @@ build_flags=
   -D OLED_SCL=18
 ~~~
 
-## ST7790 usage
+## ST7789 usage
 
 `ST7789_DRIVER` has to be defined. Example pio build flags for a Heltec VM-T190:
 ~~~
@@ -41,3 +41,7 @@ build_flags=
     -DTFT_BL=17
     -DTFT_OFFSET_X=35 ; Heltec T190 & CYD 1.9
 ~~~
+
+## ILI9341 usage
+
+Same as for the sst7789.
