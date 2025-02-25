@@ -8,6 +8,10 @@
 #include "DialogInput_bold_24.h"
 #include "DialogInput_plain_30.h"
 #include "DialogInput_bold_30.h"
+#include "IntelOneMono_Regular12pt8b.h"
+#include "IntelOneMono_Regular15pt8b.h"
+#include "IntelOneMono_Bold12pt8b.h"
+#include "IntelOneMono_Bold15pt8b.h"
 static LGFX lcd;
 #elif ILI9341_DRIVER
 #include "ILI9341.h"
@@ -131,22 +135,21 @@ void DisplayWrapper::setFontIndex(int index){
 			break;
 #else
 		case 1:
-			lcd.setFont(&GFXDialogInput_bold_24);
-			currentFont=&GFXDialogInput_bold_24;
-			break;
-		case 2:
-			lcd.setFont(&GFXDialogInput_plain_30);
-			currentFont=&GFXDialogInput_plain_30;
-			break;
-		case 3:
-			lcd.setFont(&GFXDialogInput_bold_30);
-			currentFont=&GFXDialogInput_bold_30;
-			break;
-		default:
-			lcd.setFont(&GFXDialogInput_plain_24);
-			currentFont=&GFXDialogInput_plain_24;
-			break;
-
+                        lcd.setFont(&IntelOneMono_Bold12pt8b);
+                        currentFont=&IntelOneMono_Bold12pt8b;
+                        break;
+                case 2:
+                        lcd.setFont(&IntelOneMono_Regular15pt8b);
+                        currentFont=&IntelOneMono_Regular15pt8b;
+                        break;
+                case 3:
+                        lcd.setFont(&IntelOneMono_Bold15pt8b);
+                        currentFont=&IntelOneMono_Bold15pt8b;
+                        break;
+                default:
+                        lcd.setFont(&IntelOneMono_Regular12pt8b);
+                        currentFont=&IntelOneMono_Regular12pt8b;
+                        break;
 #endif
 	}
 }
