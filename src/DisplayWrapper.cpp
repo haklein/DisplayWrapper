@@ -2,8 +2,12 @@
 #include <LovyanGFX.hpp>
 #include "DisplayWrapper.h"
 
+#if defined(ST7789_DRIVER) || defined(ILI9341_DRIVER)
 #ifdef ST7789_DRIVER
 #include "ST7789.h"
+#elif ILI9341_DRIVER
+#include "ILI9341.h"
+#endif
 #include "DialogInput_plain_24.h"
 #include "DialogInput_bold_24.h"
 #include "DialogInput_plain_30.h"
@@ -12,13 +16,6 @@
 #include "IntelOneMono_Regular15pt8b.h"
 #include "IntelOneMono_Bold12pt8b.h"
 #include "IntelOneMono_Bold15pt8b.h"
-static LGFX lcd;
-#elif ILI9341_DRIVER
-#include "ILI9341.h"
-#include "DialogInput_plain_24.h"
-#include "DialogInput_bold_24.h"
-#include "DialogInput_plain_30.h"
-#include "DialogInput_bold_30.h"
 static LGFX lcd;
 #else
 #include "SSD1306.h"
