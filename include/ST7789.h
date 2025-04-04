@@ -13,7 +13,7 @@ class LGFX : public lgfx::LGFX_Device
         cfg.spi_host = SPI2_HOST;
         cfg.spi_mode = 0;
         cfg.freq_write = 40000000;
-        cfg.freq_read  = 16000000;
+        cfg.freq_read  = 40000000;
         cfg.spi_3wire  = true;
         cfg.use_lock   = true;
         cfg.dma_channel = SPI_DMA_CH_AUTO;
