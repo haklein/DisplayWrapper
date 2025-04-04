@@ -91,7 +91,7 @@ bool DisplayWrapper::init(){
   digitalWrite(PIN_VTFT_CTRL, LOW);
 #endif
 	lcd.begin();
-	lcd.startWrite();
+	// lcd.startWrite();// As an additional note, when startWrite is used, LovyanGFX occupies the SPI bus and operates.
 #ifdef SSD1306_DRIVER
 	lcd.setColorDepth(lgfx::palette_1bit);
 #endif
