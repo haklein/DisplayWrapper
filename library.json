@@ -1,6 +1,6 @@
 {
   "name": "DisplayWrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Maps ThingPulse OLED library calls to LovyanGFX",
   "keywords": "Display",
   "repository":
@@ -18,6 +18,9 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/haklein/DisplayWrapper",
+  "dependencies": {
+    "lovyan03/LovyanGFX": "lovyan03/LovyanGFX"
+  },
   "frameworks": "*",
   "platforms": "*"
 }
