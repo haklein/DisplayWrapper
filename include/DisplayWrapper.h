@@ -44,6 +44,7 @@ class DisplayWrapper {
 		void setFont(const GFXfont *fontData);
 		void setFontIndex(int index);
 		void setColor(OLEDDISPLAY_COLOR color);
+		void setTheme(uint16_t , uint16_t);
 		void clear(void);
 		void setBrightness(uint8_t);
 		uint16_t getWidth(void);
@@ -52,4 +53,7 @@ class DisplayWrapper {
 		int colorConvert(OLEDDISPLAY_COLOR color);
 		int color = TFT_WHITE;
 		const GFXfont *currentFont;
+		bool useTheme;
+		uint16_t fg, bg;
+
 };
