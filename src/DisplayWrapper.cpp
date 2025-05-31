@@ -27,8 +27,10 @@ static LGFX lcd;
 static SSD1306 lcd;
 #endif
 
+
 DisplayWrapper::DisplayWrapper() {
 	currentFont = NULL;
+	useTheme = false;
 }
 
 uint16_t DisplayWrapper::getWidth(void) {
@@ -73,7 +75,7 @@ void DisplayWrapper::drawVerticalLine(int16_t x, int16_t y, int16_t length){
 }
 
 void DisplayWrapper::drawXbm(int16_t x, int16_t y, int16_t width, int16_t height, const uint8_t *xbm){
-	lcd.drawXBitmap(x, y, xbm, width, height, TFT_WHITE, TFT_BLACK);
+	lcd.drawXBitmap(x, y, xbm, width, height, useTheme ? fg : TFT_WHITE, useTheme ? bg : TFT_BLACK);
 }
 
 uint16_t DisplayWrapper::drawString(int16_t x, int16_t y, const String &text ){
@@ -152,7 +154,10 @@ void DisplayWrapper::setFontIndex(int index){
 }
 
 void DisplayWrapper::clear(void){
-	lcd.fillScreen(TFT_BLACK);
+	if (!useTheme)
+		lcd.fillScreen(TFT_BLACK);
+	else
+		lcd.fillScreen(bg);
 }
 
 void DisplayWrapper::setBrightness(uint8_t brightness){
@@ -160,16 +165,29 @@ void DisplayWrapper::setBrightness(uint8_t brightness){
 }
 
 void DisplayWrapper::setColor(OLEDDISPLAY_COLOR color) {
-	this->color = colorConvert(color);
-	if (color == WHITE) {
-		lcd.setColor(TFT_WHITE);
-		lcd.setTextColor(TFT_WHITE, TFT_BLACK);
+	if (!useTheme) {
+		this->color = colorConvert(color);
+		if (color == WHITE) {
+			lcd.setColor(TFT_WHITE);
+			lcd.setTextColor(TFT_WHITE, TFT_BLACK);
+		}
+		else {
+			lcd.setTextColor(TFT_BLACK, TFT_WHITE);
+			lcd.setColor(TFT_BLACK);
+		}
 	}
 	else {
-		lcd.setTextColor(TFT_BLACK, TFT_WHITE);
-		lcd.setColor(TFT_BLACK);
+		if (color == WHITE) {
+			lcd.setColor(fg);
+			lcd.setTextColor(fg, bg);
+		}
+		else {
+			lcd.setTextColor(bg, fg);
+			lcd.setColor(bg);
+		}
 	}
 }
+
 
 int DisplayWrapper::colorConvert(OLEDDISPLAY_COLOR color) {
 	switch (color) {
@@ -186,3 +204,12 @@ int DisplayWrapper::colorConvert(OLEDDISPLAY_COLOR color) {
 	}
 }
 
+void DisplayWrapper::setTheme(uint16_t f, uint16_t b) {
+if (f==b) {
+    useTheme = false;
+}
+else {
+    useTheme = true;
+    fg = f; bg = b;
+  }
+}

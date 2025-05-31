@@ -45,3 +45,6 @@ build_flags=
 ## ILI9341 usage
 
 Same as for the sst7789.
+
+# color
+It is possible to use color "themes". To do this, you need to enable themes by setTheme(uint16_t forground_color, uint16_t background_color). The arguments are 16bit RGB values. You can turn color support off by calling that function with two equal arguments (foreground_color == background_color).
