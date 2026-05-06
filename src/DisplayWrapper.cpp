@@ -78,9 +78,10 @@ void DisplayWrapper::drawXbm(int16_t x, int16_t y, int16_t width, int16_t height
 	lcd.drawXBitmap(x, y, xbm, width, height, useTheme ? fg : TFT_WHITE, useTheme ? bg : TFT_BLACK);
 }
 
-uint16_t DisplayWrapper::drawString(int16_t x, int16_t y, const String &text ){
-	lcd.setCursor(x,y);
-	return lcd.print(text);
+uint16_t DisplayWrapper::drawString(int16_t x, int16_t y, const String &text) {
+	lcd.setTextDatum(lgfx::top_left);
+	lcd.drawString(text.c_str(), x, y);
+	return lcd.textWidth(text.c_str());
 }
 
 void DisplayWrapper::flipScreenVertically(){
