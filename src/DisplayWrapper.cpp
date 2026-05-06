@@ -104,6 +104,13 @@ bool DisplayWrapper::init(){
 	//lcd.setFont(&fonts::AsciiFont8x16);
 	return true;
 }
+
+#if defined(ST7789_DRIVER) || defined(ILI9341_DRIVER)
+lgfx::LGFX_Device* DisplayWrapper::getLGFX(){
+	return &lcd;
+}
+#endif
+
 void DisplayWrapper::setTextAlignment(OLEDDISPLAY_TEXT_ALIGNMENT textAlignment){}
 
 void DisplayWrapper::setFont(int index){

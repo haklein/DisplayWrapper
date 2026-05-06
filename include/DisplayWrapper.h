@@ -49,6 +49,9 @@ class DisplayWrapper {
 		void setBrightness(uint8_t);
 		uint16_t getWidth(void);
 		uint16_t getHeight(void);
+#if defined(ST7789_DRIVER) || defined(ILI9341_DRIVER)
+		static lgfx::LGFX_Device* getLGFX();
+#endif
 	private:
 		int colorConvert(OLEDDISPLAY_COLOR color);
 		int color = TFT_WHITE;
