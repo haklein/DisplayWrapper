@@ -29,8 +29,8 @@ class DisplayWrapper {
 		void display();
 		void displayOff();
 		void drawHorizontalLine();
-		uint8_t getStringWidth(const String& usrStr);
-		uint8_t getStringHeight(const String& usrStr);
+		uint16_t getStringWidth(const String& usrStr);
+		uint16_t getStringHeight(const String& usrStr);
 		void drawRect(int16_t x, int16_t y, int16_t width, int16_t height);
 		void fillRect(int16_t x, int16_t y, int16_t width, int16_t height);
 		void drawHorizontalLine(int16_t x, int16_t y, int16_t length);
@@ -56,6 +56,7 @@ class DisplayWrapper {
 		int colorConvert(OLEDDISPLAY_COLOR color);
 		int color = TFT_WHITE;
 		const GFXfont *currentFont;
+		OLEDDISPLAY_TEXT_ALIGNMENT textAlign = TEXT_ALIGN_LEFT;
 		bool useTheme;
 		uint16_t fg, bg;
 

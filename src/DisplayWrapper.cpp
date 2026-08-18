@@ -51,7 +51,11 @@ void DisplayWrapper::displayOff(){
   lcd.sleep();
 }
 
-uint8_t DisplayWrapper::getStringWidth(const String& strUser){
+// uint16_t, not uint8_t: LovyanGFX's textWidth() returns int32_t, and a string
+// only has to reach 256 px to wrap. On a 320 px panel that is ~15 characters of
+// a 18 px monospace font, which is well inside one line - so the truncation was
+// reachable with ordinary text, and silent.
+uint16_t DisplayWrapper::getStringWidth(const String& strUser){
 	return lcd.textWidth(strUser);
 }
 
@@ -59,7 +63,7 @@ uint8_t DisplayWrapper::getStringWidth(const String& strUser){
 // maintained by BOTH setFont() overloads; before the first setFont() call it is
 // still NULL, so fall back to the metric LovyanGFX holds for the live font
 // rather than dereferencing a null IFont*.
-uint8_t DisplayWrapper::getStringHeight(const String& strUser){
+uint16_t DisplayWrapper::getStringHeight(const String& strUser){
 	return currentFont ? lcd.fontHeight(currentFont) : lcd.fontHeight();
 }
 
@@ -82,8 +86,21 @@ void DisplayWrapper::drawXbm(int16_t x, int16_t y, int16_t width, int16_t height
 	lcd.drawXBitmap(x, y, xbm, width, height, useTheme ? fg : TFT_WHITE, useTheme ? bg : TFT_BLACK);
 }
 
+// Map the ThingPulse alignment enum onto a LovyanGFX datum. CENTER centres
+// horizontally on x and keeps the top edge at y; CENTER_BOTH centres on both
+// axes - the same meaning the OLED library this wrapper emulates gives them.
+static lgfx::textdatum_t datumFor(OLEDDISPLAY_TEXT_ALIGNMENT a) {
+	switch (a) {
+		case TEXT_ALIGN_RIGHT:       return lgfx::top_right;
+		case TEXT_ALIGN_CENTER:      return lgfx::top_center;
+		case TEXT_ALIGN_CENTER_BOTH: return lgfx::middle_center;
+		case TEXT_ALIGN_LEFT:
+		default:                     return lgfx::top_left;
+	}
+}
+
 uint16_t DisplayWrapper::drawString(int16_t x, int16_t y, const String &text) {
-	lcd.setTextDatum(lgfx::top_left);
+	lcd.setTextDatum(datumFor(textAlign));
 	lcd.drawString(text.c_str(), x, y);
 	return lcd.textWidth(text.c_str());
 }
@@ -115,7 +132,11 @@ lgfx::LGFX_Device* DisplayWrapper::getLGFX(){
 }
 #endif
 
-void DisplayWrapper::setTextAlignment(OLEDDISPLAY_TEXT_ALIGNMENT textAlignment){}
+// Was an empty stub, so TEXT_ALIGN_CENTER / _RIGHT / _CENTER_BOTH were silently
+// drawn left-aligned; drawString() applies the stored alignment now.
+void DisplayWrapper::setTextAlignment(OLEDDISPLAY_TEXT_ALIGNMENT textAlignment){
+	textAlign = textAlignment;
+}
 
 void DisplayWrapper::setFont(int index){
 	setFontIndex(index);
