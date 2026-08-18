@@ -1,6 +1,6 @@
 {
   "name": "DisplayWrapper",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Maps ThingPulse OLED library calls to LovyanGFX",
   "keywords": "Display",
   "repository":
