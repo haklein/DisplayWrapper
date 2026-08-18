@@ -55,8 +55,12 @@ uint8_t DisplayWrapper::getStringWidth(const String& strUser){
 	return lcd.textWidth(strUser);
 }
 
+// Reports the height of the font that is actually selected. currentFont is
+// maintained by BOTH setFont() overloads; before the first setFont() call it is
+// still NULL, so fall back to the metric LovyanGFX holds for the live font
+// rather than dereferencing a null IFont*.
 uint8_t DisplayWrapper::getStringHeight(const String& strUser){
-	return lcd.fontHeight(currentFont);
+	return currentFont ? lcd.fontHeight(currentFont) : lcd.fontHeight();
 }
 
 void DisplayWrapper::drawRect(int16_t x, int16_t y, int16_t width, int16_t height){
@@ -119,6 +123,7 @@ void DisplayWrapper::setFont(int index){
 
 void DisplayWrapper::setFont(const GFXfont *fontData){
 	lcd.setFont(fontData);
+	currentFont = fontData;		// keep getStringHeight() in step
 }
 
 void DisplayWrapper::setFontIndex(int index){
